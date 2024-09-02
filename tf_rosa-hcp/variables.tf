@@ -38,10 +38,38 @@ variable "single_nat_gateway" {
   default     = false
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "the name you want to give the cluster"
+}
+
+variable "account_role_prefix" {
+  type        = string
+  description = "The prefix that the accoutn role should have"
+  default     = "account-role"
+}
+
+variable "operator_role_prefix" {
+  type        = string
+  description = "The prefix that should be applied to the operators"
+  default     = "operator-role"
+}
+
 variable "additional_tags" {
   type        = map(string)
   description = "Additional tags for AWS resources as required"
   default = {
     "Owner" = "Rhys"
   }
+}
+
+variable "admin_credentials_username" {
+  type        = string
+  description = "First cluster admin user name"
+  default     = "cluster-admin"
+}
+
+variable "admin_credentials_password" {
+  type        = string
+  description = "the password to go with the first cluster admin"
 }
