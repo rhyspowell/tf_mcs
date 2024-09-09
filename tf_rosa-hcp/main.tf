@@ -65,16 +65,14 @@ module "htpasswd_idp" {
 
   name               = "starter-idp"
   idp_type           = "htpasswd"
-  htpasswd_idp_users = [{ username = "test-user", password = random_password.password.result }]
+  htpasswd_idp_users = [{ username = var.admin_credentials_username, password = var.admin_credentials_password }]
 }
 
-resource "random_password" "password" {
-  length      = 14
-  special     = true
-  min_lower   = 1
-  min_numeric = 1
-  min_special = 1
-  min_upper   = 1
+resource "rhcs_group_membership" "admin" {
+  cluster = module.cluster.cluster_id
+
+  user  = var.admin_credentials_username
+  group = "cluster-admins"
 }
 
 output "cluster-private-subnets" {
